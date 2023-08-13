@@ -65,7 +65,12 @@ function App() {
     }
   }
 
-  function FinishedOrder(){
+  async function FinishedOrder(){
+    await axios.post("https://backend-restaurant-zeta.vercel.app/Order/createOrder", {customers: order}).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
     setFinished(!finished)
     setOrder([])
   }
@@ -73,10 +78,11 @@ function App() {
   const totalValue = order.reduce((total, customer) => {
     return total + customer.order.reduce((subtotal, item) => subtotal + item.price, 0);
   }, 0);
+  console.log(order)
 
   return (
     <>
-    {!finished?<div className="sm:flex sm:justify-center items-center  mt-4 grid grid-cols-1">
+    {!finished?<div className="sm:flex sm:justify-center items-center grid grid-cols-1 pt-32">
       <div className="grid grid-rows-2">
         <div className=" row-span-1">
           <h1 class="text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
@@ -95,7 +101,7 @@ function App() {
       </div>:
       
       <div className="rounded-lg shadow-lg w-full p-5 shadow-purple-200">
-        <h2 className=" flex justify-center pt-12 pb-8  text-2xl sm:text-6xl font-bold  leading-6">Nueva Orden 👨‍🍳</h2>
+        <h2 className=" flex justify-center pt-12 pb-8  text-2xl sm:text-8xl font-extrabold mb-12 leading-6">Nueva Orden 👨‍🍳</h2>
         <div className="grid grid-cols-1 sm:grid-cols-4 m-5 content-center items-center text-center ">
           <AddProfile setOrder={setOrder} order={order}/>
           <CardProfile getOrderItemsForClient={getOrderItemsForClient} isOpen={isOpen} closeModal={closeModal} selectionSaucer={selectionSaucer} handlerClick={handlerClick} menu={menu} setOrder={setOrder} order={order}/>
@@ -104,7 +110,7 @@ function App() {
           Valor Total De Orden: <span className="text-4xl pl-2 sm:pl-24 bg-gradient-to-t from-teal-500 to-emerald-600 font-extrabold text-transparent bg-clip-text">${totalValue},00 COP</span>
         </div>
         <div className="flex justify-center pb-4">
-          <button className="rounded-md border border-transparent bg-blue-100 px-8 py-4 text-xl font-semibold text-blue-900 hover:bg-blue-200" onClick={() => FinishedOrder()}>Finalizar Orden</button>
+          {!order.length == 0 ?<button className="rounded-md border border-transparent bg-blue-100 px-8 py-4 text-2xl font-semibold text-blue-900 hover:bg-blue-200" onClick={() => FinishedOrder()}>Finalizar Orden</button>:<span className="rounded-md border border-transparent bg-rose-100 px-8 py-4 text-xl font-semibold text-rose-500">Añade un cliente</span>}
         </div>
         {/* Control de Información */}
         {/* <div className="rounded-lg shadow-xl bg-slate-300 relative">
