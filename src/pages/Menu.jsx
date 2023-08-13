@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardSaurcer from '../Components/CardSaurcer'
 import axios from 'axios'
+import SkeletonCardSaurce from '../Components/SkeletonCardSaurce'
 
 function Menu() {
-  const [menu, setMenu] = useState([])
-  axios.get("https://backend-restaurant-zeta.vercel.app/Saucer/getSaucers")
-  .then((response)=> {
-    console.log(response.data)
-    setMenu(response.data.data)
-  }).catch((error) => {
-    console.log(error)
-  })
+  const [menu, setMenu] = useState(null)
+  const getSaucers = async() => {
+    axios.get("https://backend-restaurant-zeta.vercel.app/Saucer/getSaucers")
+    .then((response)=> {
+      console.log(response.data)
+      setMenu(response.data.data)
+    }).catch((error) => {
+      console.log(error)
+    })  
+  }
+
+  useEffect(() => {
+    getSaucers()
+  }, [])
   return (
     <div className='rounded-md w-full'>
       <div className='flex justify-center'>
@@ -18,8 +25,8 @@ function Menu() {
           Menú
         </div>
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-4 mx-8 py-4'>
-        {menu ? <CardSaurcer menu={menu}/> : "Cargando"}
+      <div className='mx-auto mt-8 flex flex-wrap container justify-around px-5'>        
+        {menu ? <CardSaurcer menu={menu}/> : <SkeletonCardSaurce/>}
       </div>
     </div>
   )
