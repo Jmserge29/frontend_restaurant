@@ -77,14 +77,9 @@ function CardProfile({ order, setOrder, menu, handlerClick, isOpen, closeModal, 
                   >
                     Elige Tu Mejor Opcion! 🍛🍽
                   </Dialog.Title>
-                  <div className="flex mt-4 bg-blue-200 rounded-md px-5 w-64 ">
-                    <div className="flex justify-center">
-                        y
-                    </div>
-                  </div>
 
                   <div className="mt-4">
-                    <div className='mx-auto mt-8 grid grid-cols-3 container justify-around px-5'>        
+                    <div className='mx-auto mt-8 grid grid-cols-1 sm:grid-cols-3 container justify-around px-5'>        
                         {menu ? <CardSaurcer handlerClick={handlerClick} menu={menu}/> : <SkeletonCardSaurce/>}
                     </div>
                   </div>

@@ -3,6 +3,8 @@ import CardProfile from "./Components/CardProfile";
 import AddProfile from "./Components/AddProfile";
 import axios from "axios";
 import Orden from './assets/nota.png'
+import {ShoppingBagIcon} from "@heroicons/react/24/solid"
+
 function App() {
   const [finished, setFinished] = useState(false)
   const [customer, setCustomer]= useState([])
@@ -106,11 +108,11 @@ function App() {
           <AddProfile setOrder={setOrder} order={order}/>
           <CardProfile getOrderItemsForClient={getOrderItemsForClient} isOpen={isOpen} closeModal={closeModal} selectionSaucer={selectionSaucer} handlerClick={handlerClick} menu={menu} setOrder={setOrder} order={order}/>
         </div>
-        <div className="text-center font-medium text-4xl text-stone-700 pb-20 pt-12">
-          Valor Total De Orden: <span className="text-4xl pl-2 sm:pl-24 bg-gradient-to-t from-teal-500 to-emerald-600 font-extrabold text-transparent bg-clip-text">${totalValue},00 COP</span>
+        <div className="text-center font-semibold text-4xl text-stone-700 pb-20 pt-12">
+          Valor De Orden: <span className="text-4xl pl-2 sm:pl-24 bg-gradient-to-t from-teal-500 to-emerald-600 font-extrabold text-transparent bg-clip-text">${totalValue},00 COP</span>
         </div>
         <div className="flex justify-center pb-4">
-          {!order.length == 0 ?<button className="rounded-md border border-transparent bg-blue-100 px-8 py-4 text-2xl font-semibold text-blue-900 hover:bg-blue-200" onClick={() => FinishedOrder()}>Finalizar Orden</button>:<span className="rounded-md border border-transparent bg-rose-100 px-8 py-4 text-xl font-semibold text-rose-500">Añade un cliente</span>}
+          {!order.length == 0 ?<button className=" animate-pulse rounded-xl border border-transparent bg-emerald-100 px-8 py-4 text-2xl font-semibold text-emerald-900 hover:bg-emerald-200" onClick={() => FinishedOrder()}>Finalizar Orden <ShoppingBagIcon/> </button>:<span className="rounded-md border border-transparent bg-rose-100 px-8 py-4 text-xl font-semibold text-rose-500">Añade un cliente</span>}
         </div>
         {/* Control de Información */}
         {/* <div className="rounded-lg shadow-xl bg-slate-300 relative">
